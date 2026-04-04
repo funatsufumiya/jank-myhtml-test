@@ -41,7 +41,5 @@ public:
 std::shared_ptr<MyHtml> myhtml = std::make_shared<MyHtml>();
 ")
 
-#_(def myhtml cpp/myhtml)
-
 (defn hello []
   (println "hello from myhtml jank"))

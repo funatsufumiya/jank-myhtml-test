@@ -1,4 +1,5 @@
-(ns jank-myhtml-test.main)
+(ns jank-myhtml-test.main
+  (:require [myhtml]))
 
 (cpp/raw "
 
@@ -33,4 +34,5 @@ void test()
 ")
 
 (defn -main [& args]
+  (myhtml/hello)
   (cpp/test))

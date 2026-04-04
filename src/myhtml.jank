@@ -1,0 +1,47 @@
+(ns myhtml)
+
+(cpp/raw "
+
+#include <memory>
+#include <myhtml/api.h>
+
+class MyHtml {
+public:
+   myhtml_t* ptr;
+   MyHtml(){
+     ptr = myhtml_create();
+     myhtml_init(ptr, MyHTML_OPTIONS_DEFAULT, 1, 0);
+   }
+
+   ~MyHtml(){
+     myhtml_destroy(ptr);
+   }
+};
+
+class MyHtmlTree {
+public:
+  myhtml_tree_t* ptr;
+   MyHtmlTree(std::shared_ptr<MyHtml> myhtml){
+     ptr = myhtml_tree_create();
+     myhtml_tree_init(ptr, myhtml->ptr);
+   }
+   MyHtmlTree(myhtml_t* myhtml){
+     ptr = myhtml_tree_create();
+     myhtml_tree_init(ptr, myhtml);
+   }
+   ~MyHtmlTree(){
+     myhtml_tree_destroy(ptr);
+   }
+
+   void parse(const char* s){
+      myhtml_parse(ptr, MyENCODING_UTF_8, s, strlen(s));
+   }
+};
+
+std::shared_ptr<MyHtml> myhtml = std::make_shared<MyHtml>();
+")
+
+#_(def myhtml cpp/myhtml)
+
+(defn hello []
+  (println "hello from myhtml jank"))

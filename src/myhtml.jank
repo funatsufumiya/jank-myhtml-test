@@ -38,7 +38,10 @@ public:
    }
 };
 
-std::shared_ptr<MyHtml> myhtml = std::make_shared<MyHtml>();
+std::shared_ptr<MyHtml> _myhtml = std::make_shared<MyHtml>();
+
+myhtml_t* myhtml(){ return _myhtml->ptr; }
+
 ")
 
 (defn hello []
